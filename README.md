@@ -137,7 +137,7 @@ On passe quelques étapes
 
 ![Partie 3.14](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-14.png)
 
-![Partie 3.15](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-15png)
+![Partie 3.15](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-15.png)
 
 ![Partie 3.16](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-16.png)
 
