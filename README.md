@@ -15,11 +15,8 @@ L'ordinateur joue les pions rouges.
 ## Ordre de priorité des actions : 
 
 1. Si on peut gagner on gagne !
-
 2. Empêcher l'adversaire d'aligner 3 ou 4 pions (Bien sûr, on préférera empêcher l'adversaire d'aligner 4 pions dans le cas) où les deux conditions seraient remplies). 
-
 3. Si on peut aligner 3 pions on le fait !
-
 4. Sinon on joue au hasard dans le tableau.
 
 ## Début de partie
@@ -54,14 +51,65 @@ Dans le cas de figure à gauche aucune des premières conditions n'est possible 
 ![Partie 2.7](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie2-7.png)
 ![Partie 2.8](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie2-8.png)
 
-Ici l'IA a la possibilité de gagner en alignant ses 4 pions donc elle applique la priorité n°1 : GAGNER !
+Ici l'ordinateur a la possibilité de gagner en alignant ses 4 pions donc elle applique la priorité n°1 : GAGNER !
+
+# Stratégie 2 : MAD Algorithm
+
+L'algorithme Milieu Attaque Défense (MAD) possède plusieurs fonctionnalités :
+- Evaluer si une case permet à l'adversaire de gagner
+- Evaluer si une case lui permet de gagner
+- Evaluer si une ligne de 2 pions peut être améliorée en ligne de 3 ou 4 pions
+
+
+## Actions possibles : 
+
+- Milieu
+  1. Placer le pion le plus proche du milieu
+- Attaque
+  1. Aligner 4 pions
+  2. Aligner 3 pions
+  3. Aligner 2 pions
+- Défense
+  1. Empêcher l'adversaire d'aligner 4 pions
+  2. Empêcher l'adversaire d'aligner 3 pions
+  3. Empêcher l'adversaire d'aligner 2 pions
+
+## Ordre des priorités :
+
+Du plus important au moins important :
+
+1. Aligner 4 pions
+2. Empêcher l'adversaire d'aligner 4 pions
+3. Empêcher l'adversaire d'aligner 3 pions
+4. Aligner 3 pions
+5. Aligner 2 pions
+6. Empêcher l'adversaire d'aligner 2 pions
+7. Placer le pion le plus proche du milieu
+
+## Algorithme
+
+L'algorithme vérifie dans l'ordre pour chaque action qu'il peut les exécuter, si il peut il l'exécute, sinon il passe à la suivante
+
+## Exemple :
+
+
 
 # Contacts
 
 Duncan Cadoret
+
+> Email : duncan.cadoret@etudiant.univ-rennes1.fr
+>
 > Discord : CADORET Duncan#5071
-> Gitlab : dcadoret
+>
+> Gitlab : @dcadoret
 
 Maxime Perrot
+
+> Email : maxime.perrot@etudiant.univ-rennes1.fr
+>
 > Discord : Maxime#7805
-> Gitlab : maxperrot
+> 
+> Gitlab : @maxperrot
+>
+> Keybase : @maxperrot
