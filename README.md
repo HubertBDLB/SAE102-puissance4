@@ -4,6 +4,8 @@ Jeu de Puissance4 en C réalisé dans le cadre de la SAÉ1.02 : Comparaison d'ap
 
 # Stratégie 1 : Le complément à trois
 
+L'ordinateur joue les pions rouges.
+
 - [Début de partie](#début-de-partie)
 - [Milieu de partie (Priorité n°2)](#milieu-de-partie-priorité-n2)
 - [Milieu de partie (Priorité n°3)](#milieu-de-partie-priorité-n3)
