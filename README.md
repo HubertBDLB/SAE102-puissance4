@@ -4,6 +4,8 @@ Jeu de Puissance4 en C réalisé dans le cadre de la SAÉ1.02 : Comparaison d'ap
 
 # Stratégie 1 : Le complément à trois
 
+par Duncan Cadoret
+
 L'ordinateur joue les pions rouges.
 
 - [Début de partie](#début-de-partie)
@@ -55,43 +57,89 @@ Ici l'ordinateur a la possibilité de gagner en alignant ses 4 pions donc elle a
 
 # Stratégie 2 : MAD Algorithm
 
+par Maxime Perrot
+
 L'algorithme Milieu Attaque Défense (MAD) possède plusieurs fonctionnalités :
 - Evaluer si une case permet à l'adversaire de gagner
 - Evaluer si une case lui permet de gagner
 - Evaluer si une ligne de 2 pions peut être améliorée en ligne de 3 ou 4 pions
 
-
-## Actions possibles : 
+## Actions possibles :
 
 - Milieu
   1. Placer le pion le plus proche du milieu
 - Attaque
-  1. Aligner 4 pions
-  2. Aligner 3 pions
-  3. Aligner 2 pions
+  1. Aligner 4 pions qui mèneront à une ligne de 4
+  2. Aligner 3 pions qui mèneront à une ligne de 4
+  3. Aligner 2 pions qui mèneront à une ligne de 4
 - Défense
-  1. Empêcher l'adversaire d'aligner 4 pions
-  2. Empêcher l'adversaire d'aligner 3 pions
-  3. Empêcher l'adversaire d'aligner 2 pions
+  1. Empêcher l'adversaire d'aligner 4 pions qui mèneront à une ligne de 4
+  2. Empêcher l'adversaire d'aligner 3 pions qui mèneront à une ligne de 4
+  3. Empêcher l'adversaire d'aligner 2 pions qui mèneront à une ligne de 4
+  4. Placer le pion au dessus du dernier pion ennemi
 
 ## Ordre des priorités :
 
 Du plus important au moins important :
 
-1. Aligner 4 pions
-2. Empêcher l'adversaire d'aligner 4 pions
-3. Empêcher l'adversaire d'aligner 3 pions
-4. Aligner 3 pions
-5. Aligner 2 pions
-6. Empêcher l'adversaire d'aligner 2 pions
-7. Placer le pion le plus proche du milieu
+1. Aligner 4 pions qui mèneront à une ligne de 4
+2. Empêcher l'adversaire d'aligner 4 pions qui mèneront à une ligne de 4
+3. Empêcher l'adversaire d'aligner 3 pions qui mèneront à une ligne de 4
+4. Aligner 3 pions qui mèneront à une ligne de 4
+5. Aligner 2 pions qui mèneront à une ligne de 4
+6. Placer le pion au dessus du dernier pion ennemi
+7. Empêcher l'adversaire d'aligner 2 pions qui mèneront à une ligne de 4
+8. Placer le pion au plus proche du milieu
+
+Si plusieurs actions d'une même priorités sont possibles, l'une d'entre elle sera choisie aléatoirement
+
+Si l'action à une priorité inférieur à 2 et la case au dessus du pion potentiellement posé mène à une victoire de l'adversaire, il passe à l'action suivante et banni cette case des possibilités (sauf au cas où c'est la seule action possible)
 
 ## Algorithme
 
-L'algorithme vérifie dans l'ordre pour chaque action qu'il peut les exécuter, si il peut il l'exécute, sinon il passe à la suivante
+L'algorithme exécute la première action possible dans l'ordre d'importance.
 
-## Exemple :
+## Exemple contre un algorithme imbattable :
 
+Notre algorithme commence avec les rouges.
+
+
+
+![Partie 3.1](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-1.png)
+
+![Partie 3.2](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-2.png)
+
+On passe quelques étapes
+
+![Partie 3.3](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-3.png)
+
+On passe quelques étapes
+
+![Partie 3.4](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-4.png)
+
+![Partie 3.5](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-5.png)
+
+![Partie 3.6](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-6.png)
+
+![Partie 3.7](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-7.png)
+
+![Partie 3.8](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-8.png)
+
+![Partie 3.9](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-9.png)
+
+![Partie 3.10](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-10.png)
+
+![Partie 3.11](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-11.png)
+
+![Partie 3.12](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-12.png)
+
+![Partie 3.13](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-13.png)
+
+![Partie 3.14](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-14.png)
+
+![Partie 3.15](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-15png)
+
+![Partie 3.16](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-16.png)
 
 
 # Contacts
@@ -112,4 +160,4 @@ Maxime Perrot
 > 
 > Gitlab : @maxperrot
 >
-> Keybase : @maxperrot
+> Keybase : https://keybase.io/maxperrot
