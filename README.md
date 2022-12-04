@@ -107,13 +107,13 @@ Notre algorithme commence avec les rouges.
 
 ![Partie 3.1](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-1.png)
 
+On passe quelques étapes
+
 ![Partie 3.2](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-2.png)
 
 On passe quelques étapes
 
 ![Partie 3.3](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-3.png)
-
-On passe quelques étapes
 
 ![Partie 3.4](https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4/-/raw/main/images/parties/partie3-4.png)
 
