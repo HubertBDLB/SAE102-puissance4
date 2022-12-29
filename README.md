@@ -16,7 +16,7 @@ L'ordinateur joue les pions rouges.
 - [Milieu de partie (Priorité n°4)](#milieu-de-partie-priorité-n4)
 - [Gagner la partie (Priorité n°1)](#gagner-la-partie-priorité-n1)
 
-## Ordre de priorité des actions : 
+## Ordre de priorité des actions
 
 1. Si on peut gagner on gagne !
 2. Empêcher l'adversaire d'aligner 3 ou 4 pions (Bien sûr, on préférera empêcher l'adversaire d'aligner 4 pions dans le cas) où les deux conditions seraient remplies). 
@@ -66,7 +66,7 @@ L'algorithme Milieu Attaque Défense (MAD) possède plusieurs fonctionnalités :
 - Evaluer si une case lui permet de gagner
 - Evaluer si une ligne de 2 pions peut être améliorée en ligne de 3 ou 4 pions
 
-## Actions possibles :
+## Actions possibles
 
 - Milieu
   1. Placer le pion le plus proche du milieu
@@ -80,7 +80,7 @@ L'algorithme Milieu Attaque Défense (MAD) possède plusieurs fonctionnalités :
   3. Empêcher l'adversaire d'aligner 2 pions qui mèneront à une ligne de 4
   4. Placer le pion au dessus du dernier pion ennemi
 
-## Ordre des priorités :
+## Ordre des priorités
 
 Du plus important au moins important :
 
@@ -101,7 +101,7 @@ Si l'action à une priorité inférieur à 2 et la case au dessus du pion potent
 
 L'algorithme exécute la première action possible dans l'ordre d'importance.
 
-## Exemple contre un algorithme imbattable :
+## Exemple contre un algorithme imbattable
 
 Notre algorithme commence avec les rouges.
 
