@@ -2,6 +2,8 @@
 
 Jeu de Puissance4 en C réalisé dans le cadre de la SAÉ1.02 : Comparaison d'approches algorithmiques
 
+[[_TOC_]]
+
 # Stratégie 1 : Le complément à trois
 
 par Duncan Cadoret
