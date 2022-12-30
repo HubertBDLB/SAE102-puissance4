@@ -5,7 +5,7 @@
  **  Version 1.0                                                             **
  **  A rendre pour le 8 janvier 2023                                         **
  **  Gitlab : https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4  **
- **  Fichier : main.c                                                        **
+ **  Fichier : testPoubelle.c                                                **
  ******************************************************************************/
 
 #include <stdio.h>
@@ -28,7 +28,7 @@ typedef int Choix[NB_COLONNES];
 
 // Prototypes des fonctions
 void initGrille(Grille laGrille);
-void afficher(Grille laGrille, char pion);
+void afficher(Grille laGrille, char pion); // Fonction rudimentaire et temporaire
 bool grillePleine(Grille laGrille);
 void faireJouerA(Grille laGrille, char pion, int *ligne, int *colonne);
 void faireJouerB(Grille laGrille, char pion, int *ligne, int *colonne);
@@ -43,6 +43,7 @@ int choisirColonneStrategie4(Grille laGrille, char pion);
 int MAD_Algorithm(Grille laGrille, char pion);
 void partie(char *vainqueur, int *compteurPionsA, int *compteurPionsB);
 bool danger(Grille laGrille, int lig, int col, char pionEnnemi);
+void copieGrille(Grille g1, Grille g2);
 
 // Programme principal. C'est le pion A qui commence à jouer
 int main()
@@ -76,9 +77,9 @@ int main()
 		{' ',' ',' ',' ',' ',' ',' '},
 		{' ',' ',' ',' ',' ',' ',' '},
 		{' ',' ',' ',' ',' ',' ',' '},
-		{'O','X',' ',' ',' ',' ',' '},
-		{'O','O','X',' ',' ',' ',' '},
-		{'X','O','O','X',' ','X',' '}
+		{' ','X',' ',' ',' ',' ',' '},
+		{'O','O','X','X',' ','X','X'},
+		{'O','O','O','X',' ','O','O'}
 		};
 		
 	MAD_Algorithm(test, PION_B);
@@ -89,6 +90,20 @@ int main()
 /*******************************
  **  Fonctions et procédures  **
  *******************************/
+void afficher(Grille laGrille, char pion) // Fonction rudimentaire et temporaire
+{
+    int i, j;
+    printf("\n|---|---|---|---|---|---|---|\n");
+    for (i = 0; i < NB_LIGNES; i++)
+    {
+        printf("|");
+        for (j = 0; j < NB_COLONNES; j++)
+        {
+            printf(" %c |", laGrille[i][j]);
+        }
+        printf("\n|---|---|---|---|---|---|---|\n");
+    }
+}
 
 void initGrille(Grille laGrille)
 {
@@ -327,15 +342,12 @@ int choisirColonneStrategie2(Grille laGrille, char pion)
     for (col = 0; col < NB_COLONNES; col++)
     {
         lig = chercherLigne(laGrille, col);
-        printf("\n---lig = %d\tligMaximum = %d---\n",lig,ligMaximum);
         if (lig > ligMaximum)
         {
-            printf("\n---lig > ligMaximum---\n");
             ligMaximum = lig;
             colMinimum = col;
         }
     }
-    printf("\n---colMinimum : %d---\n",colMinimum);
     return colMinimum;
 }
 
@@ -371,7 +383,7 @@ int choisirColonneStrategie4(Grille laGrille, char pion)
 // Stratégie du MAD Algorithm
 int MAD_Algorithm(Grille laGrille, char pion)
 {
-    int poubelle[NB_COLONNES];
+    int poubelle[NB_COLONNES]; // TEMPORAIRE
     int i,j;
     int colonne, ligne;
     char pionEnnemi;
@@ -379,7 +391,7 @@ int MAD_Algorithm(Grille laGrille, char pion)
     colonne = -1; // TEMPORAIRE
     
     // --- Poubelle ---
-    
+
 	// Calcul du pion ennemi
     if (pion == PION_A)
     {
@@ -392,15 +404,19 @@ int MAD_Algorithm(Grille laGrille, char pion)
     
     for (i = 0; i < NB_COLONNES; i++)
     {
-        ligne = chercherLigne(laGrille, i) -1; // FIXME : Ne marche PEUT-ËTRE pas pour la dernière ligne
+        ligne = chercherLigne(laGrille, i) -1; // FIXME : Ne marche PEUT-ËTRE pas pour la ligne du haut
         poubelle[i] = danger(laGrille, ligne, i, pionEnnemi);
     }
 
 	// TEMPORAIRE
+
+    afficher(laGrille, pion);
+
+    printf("\n  ");
 	
 	for (i=0;i<NB_COLONNES;i++)
 	{
-		printf("%d, ", poubelle[i]);
+		printf("%d   ", poubelle[i]);
 	}
 	
 	// FIN TEMPORAIRE
@@ -410,10 +426,14 @@ int MAD_Algorithm(Grille laGrille, char pion)
 bool danger(Grille laGrille, int lig, int col, char pionEnnemi)
 {
     // Envoie une grille dans laquelle le pion (lig ; col) est un pion ennemi dans la fonction estVainqueur()
+	bool estDangereux;
 	Grille grilleTemp;
+	
 	copieGrille(laGrille, grilleTemp);
-	grilleTemp[lig-1][col] = pionEnnemi;
-	return estVainqueur(grilleTemp,lig-1,col);
+	grilleTemp[lig][col] = pionEnnemi;
+	
+	estDangereux = estVainqueur(grilleTemp, lig, col);
+	return estDangereux;
 }
 
 void copieGrille(Grille g1, Grille g2)
