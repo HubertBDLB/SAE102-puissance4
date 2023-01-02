@@ -427,7 +427,7 @@ int MAD_Algorithm(Grille laGrille, char pion)
 	}
     else
     {
-		pionEnnemi == PION_A
+		pionEnnemi == PION_A;
 	}
     
     for (i = 0; i < NB_COLONNES; i++)
