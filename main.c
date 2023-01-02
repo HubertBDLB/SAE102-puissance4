@@ -470,9 +470,11 @@ bool danger(Grille laGrille, int lig, int col, char pionEnnemi)
 {
     // Envoie une grille dans laquelle le pion (lig ; col) est un pion ennemi dans la fonction estVainqueur()
 	Grille grilleTemp;
+	
 	copieGrille(laGrille, grilleTemp);
-	grilleTemp[lig-1][col] = pionEnnemi;
-	return estVainqueur(grilleTemp);
+	grilleTemp[lig][col] = pionEnnemi;
+	
+	return estVainqueur(grilleTemp, lig, col);
 }
 
 void copieGrille(Grille g1, Grille g2)
