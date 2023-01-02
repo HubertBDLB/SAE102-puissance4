@@ -426,7 +426,7 @@ int MAD_Algorithm(Grille laGrille, char pion)
     
     for (i = 0; i < NB_COLONNES; i++)
     {
-        ligne = chercherLigne(laGrille, i) -1;
+        ligne = chercherLigne(laGrille, i);
         poubelle[i] = danger(laGrille, ligne, i, pionEnnemi);
     }
     
@@ -466,6 +466,7 @@ bool danger(Grille laGrille, int lig, int col, char pionEnnemi)
     // Envoie une grille dans laquelle le pion (lig ; col) est un pion ennemi dans la fonction estVainqueur()
 	Grille grilleTemp;
 	
+    lig--;
 	copieGrille(laGrille, grilleTemp);
 	grilleTemp[lig][col] = pionEnnemi;
 	
