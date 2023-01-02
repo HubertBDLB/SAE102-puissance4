@@ -421,14 +421,8 @@ int MAD_Algorithm(Grille laGrille, char pion)
     // --- Poubelle ---
     
 	// Calcul du pion ennemi
-    if (pion == PION_A)
-    {
-		pionEnnemi = PION_B;
-	}
-    else
-    {
-		pionEnnemi == PION_A
-	}
+    if (pion == PION_A) {pionEnnemi = PION_B;}
+    else {pionEnnemi == PION_A}
     
     for (i = 0; i < NB_COLONNES; i++)
     {
@@ -460,6 +454,7 @@ int MAD_Algorithm(Grille laGrille, char pion)
     }
     else
     {
+        choisirColonneStrategie3(laGrille, pion);
     }
     */
     
