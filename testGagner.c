@@ -5,7 +5,7 @@
  **  Version 1.0                                                             **
  **  A rendre pour le 8 janvier 2023                                         **
  **  Gitlab : https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4  **
- **  Fichier : main.c                                                        **
+ **  Fichier : testGagner.c                                                        **
  ******************************************************************************/
 
 #include <stdio.h>
@@ -422,18 +422,12 @@ int MAD_Algorithm(Grille laGrille, char pion)
     // --- Poubelle ---
     
 	// Calcul du pion ennemi
-    if (pion == PION_A)
-    {
-		pionEnnemi = PION_B;
-	}
-    else
-    {
-		pionEnnemi == PION_A;
-	}
+    if (pion == PION_A) {pionEnnemi = PION_B;}
+    else {pionEnnemi == PION_A;}
     
     for (i = 0; i < NB_COLONNES; i++)
     {
-        ligne = chercherLigne(laGrille, i) -1;
+        ligne = chercherLigne(laGrille, i);
         poubelle[i] = danger(laGrille, ligne, i, pionEnnemi);
     }
     
