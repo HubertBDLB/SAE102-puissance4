@@ -1,3 +1,4 @@
+
 /******************************************************************************
  **  Calcul de l'efficacité de stratégies de puissance4                      **
  **                                                                          **
@@ -5,7 +6,7 @@
  **  Version 1.0                                                             **
  **  A rendre pour le 8 janvier 2023                                         **
  **  Gitlab : https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4  **
- **  Fichier : main.c                                                        **
+ **  Fichier : testGagner.c                                                  **
  ******************************************************************************/
 
 #include <stdio.h>
