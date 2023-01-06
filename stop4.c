@@ -5,7 +5,7 @@
  **  Version 1.0                                                             **
  **  A rendre pour le 8 janvier 2023                                         **
  **  Gitlab : https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4  **
- **  Fichier : main.c                                                        **
+ **  Fichier : stop4.c                                                       **
  ******************************************************************************/
 
 #include <stdio.h>
