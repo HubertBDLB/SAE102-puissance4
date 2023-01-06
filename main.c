@@ -5,7 +5,7 @@
  **  Version 1.0                                                             **
  **  A rendre pour le 8 janvier 2023                                         **
  **  Gitlab : https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4  **
- **  Fichier : main.c                                                        **
+ **  Fichier : stop4.c                                                       **
  ******************************************************************************/
 
 #include <stdio.h>
@@ -27,102 +27,59 @@ typedef int Grille[NB_LIGNES][NB_COLONNES];
 typedef int Choix[NB_COLONNES];
 
 // Prototypes des fonctions
-void initGrille(Grille laGrille);
 void afficher(Grille laGrille, char pion);
+void initGrille(Grille laGrille);
 bool grillePleine(Grille laGrille);
 void faireJouerA(Grille laGrille, char pion, int *ligne, int *colonne);
 void faireJouerB(Grille laGrille, char pion, int *ligne, int *colonne);
 int choisirColonne(Grille laGrille, char pion);
 int chercherLigne(Grille laGrille, int col);
 bool estVainqueur(Grille laGrille, int lig, int col);
-void finDePartie(char vainqueur);
+void partie(char *vainqueur, int *compteurPionsA, int *compteurPionsB);
 int choisirColonneStrategie1(Grille laGrille, char pion);
 int choisirColonneStrategie2(Grille laGrille, char pion);
 int choisirColonneStrategie3(Grille laGrille, char pion);
 int choisirColonneStrategie4(Grille laGrille, char pion);
-void partie(char *vainqueur, int *compteurPionsA, int *compteurPionsB);
+int MAD_Algorithm(Grille laGrille, char pion);
+bool danger(Grille laGrille, int lig, int col, char pionEnnemi);
+void copieGrille(Grille g1, Grille g2);
+int aligner4(Grille laGrille, int ligne, int colonne, char monPion);
 
 // Programme principal. C'est le pion A qui commence à jouer
 int main()
 {
-	char vainqueur;
-	int i;
-	int compteurPionsA, compteurPionsB;
-	int nbPionsA, nbPionsB;
-	int nbVictoiresA, nbVictoiresB, nbPartiesNulles, nbParties;
-	
-	vainqueur = INCONNU;
-	compteurPionsA = 0;
-	compteurPionsB = 0;
-	nbPionsA = 0;
-	nbPionsB = 0;
-	nbVictoiresA = 0;
-	nbVictoiresB = 0;
-	nbPartiesNulles = 0;
+    char vainqueur;
+    int i;
+    int compteurPionsA, compteurPionsB;
+    int nbPionsA, nbPionsB;
+    int nbVictoiresA, nbVictoiresB, nbPartiesNulles, nbParties;
 
-	printf("┌───────────────────────────────────────────────────────────────┐\n");
-	printf("│         IUT Lannion - BUT Informatique 1 - 2022-2023          │\n");
-	printf("│       SAE1.02 - Comparaison d'approches algorithmiques        │\n");
-	printf("│          Duncan Cadoret 1E2 I, Maxime Perrot 1E1 I            │\n");
-	printf("│                                                               │\n");
-	printf("│ https://gitlabiut.iutlan.univ-rennes1.fr/maxperrot/puissance4 │\n");
-	printf("│                                                               │\n");
-	printf("├───────────────────────────────────────────────────────────────┤\n");
-	printf("│                                                               │\n");
-	printf("│ Jeu de Puissance4 en C avec algorithme de décisions           │\n");
-	printf("│                                                               │\n");
-	printf("│ Stratégie de %c : Aléatoire                                    │\n", PION_A);
-	printf("│ Stratégie de %c : Aléatoire                                    │\n", PION_B);
-	printf("└───────────────────────────────────────────────────────────────┘\n");
-	
-	do
-	{
-	printf(" > Entrer le nombre de parties : ");
-	scanf(" %d", &nbParties);
-	} while(nbParties < 1);
-	
-	srand(time(NULL));
-	clock_t debut;
-	debut = clock();
-	
-	for (i = 0; i < nbParties; i++)
-	{
-		vainqueur = INCONNU;
-		compteurPionsA = 0;
-		compteurPionsB = 0;
-		
-		partie(&vainqueur, &compteurPionsA, &compteurPionsB);
-		
-		if (vainqueur == INCONNU)
-		{
-			nbPartiesNulles++;
-		}
-		else if (vainqueur == PION_A)
-		{
-			nbVictoiresA++;
-		}
-		else if (vainqueur == PION_B)
-		{
-			nbVictoiresB++;
-		}
-		
-		nbPionsA += compteurPionsA;
-		nbPionsB += compteurPionsB;
-	}
-	
-	clock_t fin;
-	fin = clock() - debut;
-	float tempsExecution = (fin -  debut) / (CLOCKS_PER_SEC*1.0);
-	
-	printf("┌───────────────┬───────────────────────┬────────────────────────────┐\n");
-	printf("│ Joueur        │ Victoires             │ Pions gagnants par partie  │\n");
-	printf("├───────────────┼───────────────────────┼────────────────────────────┤\n");
-	printf("│ Joueur %c\t│ %6d (%2.3f%)\t│ %.2f\t\t\t     │\n", PION_A, nbVictoiresA, ((nbVictoiresA*100.0)/nbParties), ((nbPionsA*1.0)/nbParties));
-	printf("│ Joueur %c\t│ %6d (%2.3f%)\t│ %.2f\t\t\t     │\n", PION_B, nbVictoiresB, ((nbVictoiresB*100.0)/nbParties), ((nbPionsB*1.0)/nbParties));
-	printf("│ Match nuls\t│ %6d (%2.3f%)\t│   \t\t\t     │\n", nbPartiesNulles, ((nbPartiesNulles*100.0)/nbParties));
-	printf("└───────────────┴───────────────────────┴────────────────────────────┘\n");
-	printf("Temps d'exécution total : %.6fs\n", tempsExecution);
-	printf("Temps d'exécution moyen : %.6fµs\n", (tempsExecution/nbParties)*1000000);
+    vainqueur = INCONNU;
+    compteurPionsA = 0;
+    compteurPionsB = 0;
+    nbPionsA = 0;
+    nbPionsB = 0;
+    nbVictoiresA = 0;
+    nbVictoiresB = 0;
+    nbPartiesNulles = 0;
+
+    Grille laGrille = {
+        {VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE},
+        {VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE},
+        {VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE},
+        {VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE},
+        {VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE},
+        {VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE}};
+
+    Grille test = {
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', 'X', 'X', ' ', ' ', ' ', ' '},
+        {'O', 'O', 'X', 'O', ' ', 'X', 'X'},
+        {'O', 'O', 'O', 'X', 'O', 'O', 'O'}};
+    MAD_Algorithm(test, PION_A);
+
     system(EXIT_SUCCESS);
 }
 
@@ -203,7 +160,7 @@ int chercherLigne(Grille laGrille, int col)
     return ligne;
 }
 
-bool estVainqueur(Grille laGrille, int lig, int col)
+bool estVainqueur(Grille laGrille, int lig, int col, int tailleAlignement)
 {
     // consiste à regarder si une ligne de 4 pions s'est formÃ©e autour du pion qui vient de tomber en (lig, col)
     char lePion = laGrille[lig][col];
@@ -217,15 +174,15 @@ bool estVainqueur(Grille laGrille, int lig, int col)
         cpt++;
         i++;
     }
-    if (cpt >= 4)
+    if (cpt >= tailleAlignement)
     {
         return true;
     }
-    
+
     // regarder l'horizontale, en comptant le nombre de pions à l'Est et à l'Ouest
     j = col;
     cpt = 0;
-    
+
     // on regarde à l'est
     while (j >= 0 && laGrille[lig][j] == lePion)
     {
@@ -233,23 +190,23 @@ bool estVainqueur(Grille laGrille, int lig, int col)
         j--;
     }
     j = col + 1;
-    
+
     // on regarde à l'ouest
     while (j < NB_COLONNES && laGrille[lig][j] == lePion)
     {
         cpt++;
         j++;
     }
-    if (cpt >= 4)
+    if (cpt >= tailleAlignement)
     {
         return true;
     }
-    
+
     // regarder la diagonale descendante, en comptant le nombre de pions au Nord Ouest et au Sud Est
     i = lig;
     j = col;
     cpt = 0;
-    
+
     // on regarde au Nord Ouest
     while (j >= 0 && i >= 0 && laGrille[i][j] == lePion)
     {
@@ -259,7 +216,7 @@ bool estVainqueur(Grille laGrille, int lig, int col)
     }
     i = lig + 1;
     j = col + 1;
-    
+
     // on regarde au Sud Est
     while (i < NB_LIGNES && j < NB_COLONNES && laGrille[i][j] == lePion)
     {
@@ -267,16 +224,16 @@ bool estVainqueur(Grille laGrille, int lig, int col)
         i++;
         j++;
     }
-    if (cpt >= 4)
+    if (cpt >= tailleAlignement)
     {
         return true;
     }
-    
+
     // regarder la diagonale descendante, en comptant le nombre de pions au Nord Est et au Sud Ouest
     i = lig;
     j = col;
     cpt = 0;
-    
+
     // on regarde au Nord Est
     while (j < NB_COLONNES && i >= 0 && laGrille[i][j] == lePion)
     {
@@ -286,7 +243,7 @@ bool estVainqueur(Grille laGrille, int lig, int col)
     }
     i = lig + 1;
     j = col - 1;
-    
+
     // on regarde au Sud Ouest
     while (i < NB_LIGNES && j >= 0 && laGrille[i][j] == lePion)
     {
@@ -294,11 +251,11 @@ bool estVainqueur(Grille laGrille, int lig, int col)
         i++;
         j--;
     }
-    if (cpt >= 4)
+    if (cpt >= tailleAlignement)
     {
         return true;
     }
-    
+
     return false;
 }
 
@@ -307,7 +264,7 @@ void partie(char *vainqueur, int *compteurPionsA, int *compteurPionsB)
     Grille laGrille;
     int ligne, colonne;
     initGrille(laGrille);
-    
+
     while (*vainqueur == INCONNU && !grillePleine(laGrille))
     {
         faireJouerA(laGrille, PION_A, &ligne, &colonne);
@@ -325,7 +282,7 @@ void partie(char *vainqueur, int *compteurPionsA, int *compteurPionsB)
                 *vainqueur = PION_B;
             }
         }
-    }	
+    }
 }
 
 /******************
@@ -367,7 +324,7 @@ int choisirColonneStrategie2(Grille laGrille, char pion)
     for (col = 0; col < NB_COLONNES; col++)
     {
         lig = chercherLigne(laGrille, col);
-        printf("\n---lig = %d\tligMaximum = %d---\n",lig,ligMaximum);
+        printf("\n---lig = %d\tligMaximum = %d---\n", lig, ligMaximum);
         if (lig > ligMaximum)
         {
             printf("\n---lig > ligMaximum---\n");
@@ -375,113 +332,166 @@ int choisirColonneStrategie2(Grille laGrille, char pion)
             colMinimum = col;
         }
     }
-    printf("\n---colMinimum : %d---\n",colMinimum);
+    printf("\n---colMinimum : %d---\n", colMinimum);
     return colMinimum;
 }
 
 // Stratégie MilieuAlterneGaucheDroite
 int choisirColonneStrategie3(Grille laGrille, char pion)
 {
-	Choix tab = {3,2,4,1,5,0,6};
-	int res;
-	int i;
-	i = 0;
-	while (laGrille[0][tab[i]]!= VIDE)
-	{
-    	i = i+1;
-	}
-	if (laGrille[0][tab[i]] == VIDE)
-	{
-    	res = tab[i];
-	}
-	return res;
+    Choix tab = {3, 2, 4, 1, 5, 0, 6};
+    int res;
+    int i;
+    i = 0;
+    while (laGrille[0][tab[i]] != VIDE)
+    {
+        i = i + 1;
+    }
+    if (laGrille[0][tab[i]] == VIDE)
+    {
+        res = tab[i];
+    }
+    return res;
 }
 
 // Stratégie Aleatoire
 int choisirColonneStrategie4(Grille laGrille, char pion)
 {
-	int colonne;
-	do
-	{
-    	colonne = rand() % NB_COLONNES;
-	} while (laGrille[0][colonne] != VIDE);
-	return colonne;
+    int colonne;
+    do
+    {
+        colonne = rand() % NB_COLONNES;
+    } while (laGrille[0][colonne] != VIDE);
+    return colonne;
 }
 
 // Stratégie du MAD Algorithm
 int MAD_Algorithm(Grille laGrille, char pion)
 {
     int poubelle[NB_COLONNES];
+    int solutions[NB_COLONNES];
     int i;
     int colonne, ligne;
     char pionEnnemi;
-    
+
     colonne = -1; // TEMPORAIRE
-    
+
     // --- Poubelle ---
-    
-	// Calcul du pion ennemi
-    if (pion == PION_A) {pionEnnemi = PION_B;}
-    else {pionEnnemi == PION_A;}
-    
+
+    // Calcul du pion ennemi
+    if (pion == PION_A)
+    {
+        pionEnnemi = PION_B;
+    }
+    else
+    {
+        pionEnnemi == PION_A;
+    }
+
+    // Poubelle
     for (i = 0; i < NB_COLONNES; i++)
     {
         ligne = chercherLigne(laGrille, i);
         poubelle[i] = danger(laGrille, ligne, i, pionEnnemi);
     }
-    
-	/*
-    if (gagner() != -1)
+ 
+    // Attaque 4
+    for (i = 0; i < NB_COLONNES; i++)
     {
+        ligne = chercherLigne(laGrille, i);
+        colonne aligner(laGrille, ligne, i, pion,4);
+        solution[colonne] = true;
     }
-    else if (stop4() != -1)
+
+    // Défense 4
+    for (i = 0; i < NB_COLONNES; i++)
     {
+        ligne = chercherLigne(laGrille, i);
+        colonne = aligner(laGrille, ligne, i, pionEnnemi,4);
+        solution[colonne] = true;
     }
-    else if (stop3() != -1)
+
+    // Défense 3
+    for (i = 0; i < NB_COLONNES; i++)
     {
+        ligne = chercherLigne(laGrille, i);
+        colonne = aligner(laGrille, ligne, i, pionEnnemi,3);
+        solution[colonne] = true;
     }
-    else if (align3() != -1)
+
+    // Attaque 3
+    for (i = 0; i < NB_COLONNES; i++)
     {
+        ligne = chercherLigne(laGrille, i);
+        colonne = aligner(laGrille, ligne, i, pion,3);
+        solution[colonne] = true;
     }
-    else if (align2() != -1)
+
+    // Attaque 2
+    for (i = 0; i < NB_COLONNES; i++)
     {
+        ligne = chercherLigne(laGrille, i);
+        colonne = aligner(laGrille, ligne, i, pion,2);
+        solution[colonne] = true;
     }
-    else if (audessus() != -1)
+
+    // Défense 2
+
+    for (i = 0; i < NB_COLONNES; i++)
     {
+        ligne = chercherLigne(laGrille, i);
+        colonne = aligner(laGrille, ligne, i, pionEnnemi, 2);
+        solution[colonne] = true;
     }
-    else if (stop2() != -1)
-    {
-    }
-    else
-    {
-        choisirColonneStrategie3(laGrille, pion);
-    }
-    */
-    
+
+    // Milieu
+
+
     return colonne;
 }
 
 bool danger(Grille laGrille, int lig, int col, char pionEnnemi)
 {
     // Envoie une grille dans laquelle le pion (lig ; col) est un pion ennemi dans la fonction estVainqueur()
-	Grille grilleTemp;
-	
+    Grille grilleTemp;
+
     lig--;
-	copieGrille(laGrille, grilleTemp);
-	grilleTemp[lig][col] = pionEnnemi;
-	
-	return estVainqueur(grilleTemp, lig, col);
+    copieGrille(laGrille, grilleTemp);
+    grilleTemp[lig][col] = pionEnnemi;
+
+    return estVainqueur(grilleTemp, lig, col);
 }
 
 void copieGrille(Grille g1, Grille g2)
 {
-	int x, y;
-	
-	for (y = 0; y < NB_LIGNES; y++)
-	{
-		for (x = 0; x < NB_COLONNES; x++)
-		{
-			g2[y][x] = g1[y][x];
-		}
-	}
+    int x, y;
+
+    for (y = 0; y < NB_LIGNES; y++)
+    {
+        for (x = 0; x < NB_COLONNES; x++)
+        {
+            g2[y][x] = g1[y][x];
+        }
+    }
+}
+
+int aligner(Grille laGrille, int ligne, int colonne, char pion, int taille)
+{
+    /*
+    Si pion = pionEnnemi, fonction de défense
+    Sinon fonction d'attaque
+    */
+
+    Grille grilleTemp;
+    int res;
+    res = -1;
+
+    copieGrille(laGrille, grilleTemp);
+    grilleTemp[ligne][colonne] = pion;
+    if (estVainqueur(grilleTemp, ligne, colonne, taille))
+    {
+        res = colonne;
+    }
+
+    return res;
 }
