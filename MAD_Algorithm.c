@@ -253,6 +253,5 @@ int MAD_Algorithm(t_grille laGrille)
     {
         i = i + 1;
     }
-    if (laGrille[0][milieu[i]] == VIDE)
     return milieu[i];
 }
