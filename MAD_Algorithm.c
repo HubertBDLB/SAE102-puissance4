@@ -59,7 +59,7 @@ int chercherLigne(t_grille laGrille, int col)
 
 bool estAligne(t_grille laGrille, int lig, int col, int taille)
 {
-    // consiste à regarder si une ligne de 4 pions s'est formÃ©e autour du pion qui vient de tomber en (lig, col)
+    // consiste à regarder si une ligne de <taille> pions s'est formÃ©e autour du pion qui vient de tomber en (lig, col)
     int lePion = laGrille[lig][col];
     int cpt, i, j;
 
