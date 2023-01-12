@@ -208,14 +208,14 @@ int MAD_Algorithm(t_grille laGrille)
     // Attaque 4
     for (i = 0; i < COLONNE; i++)
     {
-        if (aligner(laGrille, lignes[i], i, JOUEUR, 4))
+        if (aligner(laGrille, lignes[i], i, JOUEUR, 4) && (laGrille[lignes[i]][i]) == VIDE)
         {return i;}
 	}
 	
     // Défense 4
     for (i = 0; i < COLONNE; i++)
     {
-        if (aligner(laGrille, lignes[i], i, ADVERSAIRE, 4))
+        if (aligner(laGrille, lignes[i], i, ADVERSAIRE, 4) && (laGrille[lignes[i]][i]) == VIDE)
         {return i;}
     }
 
@@ -254,5 +254,5 @@ int MAD_Algorithm(t_grille laGrille)
         i = i + 1;
     }
     if (laGrille[0][milieu[i]] == VIDE)
-    {return milieu[i];}
+    return milieu[i];
 }
