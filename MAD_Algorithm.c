@@ -1,3 +1,8 @@
+/*
+* Duncan Cadoret, Maxime Perrot
+*
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -249,9 +254,9 @@ int MAD_Algorithm(t_grille laGrille)
 
     // Milieu
     i = 0;
-    while (laGrille[0][milieu[i]] != VIDE && i < COLONNE)
+    while ( (laGrille[0][milieu[i]] != VIDE) && (i < (COLONNE-1)) )
     {
-        i = i + 1;
+        i++;
     }
     return milieu[i];
 }
